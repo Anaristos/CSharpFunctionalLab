@@ -15,33 +15,16 @@ namespace Demo
         public static Currency EUR => new Currency("EUR");
         public static Currency JPY => new Currency("JPY");
 
-        public bool Equals(Currency other)
-        {
-            if (other is null) return false;
+        public override bool Equals(object obj) => Equals(obj as Currency);
 
-            if (ReferenceEquals(this, other)) return true;
+        public bool Equals(Currency other) => !(other is null) && other.Symbol == Symbol;
 
-            return string.Equals(Symbol, other.Symbol);
-        }
+        public override int GetHashCode() => Symbol?.GetHashCode() ?? 0;
 
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-
-            if (ReferenceEquals(this, obj)) return true;
-
-            if (obj.GetType() != GetType()) return false;
-
-            return Equals((Currency) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return (Symbol != null ? Symbol.GetHashCode() : 0);
-        }
-
-        public static bool operator ==(Currency a, Currency b) => (a is null && b is null) || (!(a is null) && a.Equals(b));
+        public static bool operator ==(Currency a, Currency b) => ReferenceEquals(a, b) || (!(a is null) && a.Equals(b));
 
         public static bool operator !=(Currency a, Currency b) => !(a == b);
+
+        public override string ToString() => Symbol;
     }
 }

@@ -13,10 +13,10 @@ namespace Demo
 
         public override Money On(Timestamp time) => CardOn(time);
 
-        public BankCard CardOn(Timestamp time) => time.CompareTo(this.ValidBefore) >= 0 ? (BankCard)new CardExpired(this.ValidBefore) : this;
+        public BankCard CardOn(Timestamp time) => time.CompareTo(ValidBefore) >= 0 ? (BankCard)new CardExpired(ValidBefore) : this;
 
         public override SpecificMoney Of(Currency currency) => new SpecificCard(currency, this);
 
-        public virtual Tuple<Amount, Money> Take(Currency currency, decimal amount) => Tuple.Create(new Amount(currency, amount), (Money)this);
+        public virtual (Amount, Money) Take(Currency currency, decimal amount) => ((new Amount(currency, amount), (Money)this));
     }
 }

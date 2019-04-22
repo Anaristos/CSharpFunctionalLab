@@ -10,6 +10,6 @@ namespace Demo
 
         public override SpecificMoney Of(Currency currency) => new Empty(currency);
 
-        public override Tuple<Amount, Money> Take(Currency currency, decimal amount) => Tuple.Create(Amount.Zero(currency), (Money)this);
+        public override (Amount, Money) Take(Currency currency, decimal amount) => (Amount.Zero(currency), (Money) this);
     }
 }

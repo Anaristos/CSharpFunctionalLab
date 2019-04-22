@@ -10,13 +10,13 @@ namespace Demo
 
         public static IEnumerable<SpecificMoney> Of(this IEnumerable<Money> moneys,Currency currency) => moneys.Select(money => money.Of(currency));
 
-        public static IEnumerable<Tuple<Amount, Money>> Take(this IEnumerable<SpecificMoney> moneys, decimal amount)
+        public static IEnumerable<(Amount, Money)> Take(this IEnumerable<SpecificMoney> moneys, decimal amount)
         {
             decimal rest = amount;
 
             foreach (SpecificMoney money in moneys)
             {
-                Tuple<Amount, Money> current = money.Take(rest);
+                (Amount, Money) current = money.Take(rest);
 
                 yield return current;
 

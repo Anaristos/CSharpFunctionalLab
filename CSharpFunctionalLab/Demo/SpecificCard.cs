@@ -13,6 +13,6 @@ namespace Demo
 
         public override Money On(Timestamp time) => new SpecificCard(Currency, Card.CardOn(time));
 
-        public override Tuple<Amount, Money> Take(decimal amount) => Card.Take(Currency, amount);
+        public override (Amount, Money) Take(decimal amount) => Card.Take(Currency, amount);
     }
 }

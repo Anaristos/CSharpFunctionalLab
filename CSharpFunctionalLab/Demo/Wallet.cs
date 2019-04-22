@@ -15,10 +15,10 @@ namespace Demo
 
         public Amount Charge(Currency currency, Amount toCharge)
         {
-            IEnumerable<Tuple<Amount, Money>> split = Content.On(Timestamp.Now)
-                                                             .Of(toCharge.Currency)
-                                                             .Take(toCharge.Value)
-                                                             .ToList();
+            IEnumerable<(Amount, Money)> split = Content.On(Timestamp.Now)
+                                                        .Of(toCharge.Currency)
+                                                        .Take(toCharge.Value)
+                                                        .ToList();
 
             Content = split.Select(tuple => tuple.Item2).ToList();
 

@@ -18,6 +18,6 @@ namespace Demo
             return new Empty(currency);
         }
 
-        public abstract Tuple<Amount, Money> Take(decimal amount);
+        public abstract (Amount, Money) Take(decimal amount);
     }
 }

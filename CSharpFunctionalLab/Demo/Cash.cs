@@ -1,4 +1,0 @@
-﻿namespace Demo
-{
-    class Cash { }
-}

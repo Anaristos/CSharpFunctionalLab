@@ -1,24 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Demo
 {
-    class Wallet
+    public class Wallet
     {
-        private IList<Money> Content { get; } = new List<Money>();
+        private IList<Money> Content { get; set; } = new List<Money>();
 
-        public void Charge(Currency currency, decimal amount)
+        public void Add(Money money)
         {
-            decimal remaining = amount;
+            Content.Add(money ?? throw new ArgumentNullException(nameof(money)));
+        }
 
-            using (IEnumerator<Money> money = Content.GetEnumerator())
-            {
-                while (money.MoveNext() && remaining > 0)
-                {
-                    decimal paid = money.Current.Withdraw(currency, remaining);
+        public Amount Charge(Currency currency, Amount toCharge)
+        {
+            IEnumerable<Tuple<Amount, Money>> split = Content.On(Timestamp.Now)
+                                                             .Of(toCharge.Currency)
+                                                             .Take(toCharge.Value)
+                                                             .ToList();
 
-                    remaining -= paid;
-                }
-            }
+            Content = split.Select(tuple => tuple.Item2).ToList();
+
+            decimal total = split.Sum(tuple => tuple.Item1.Value);
+
+            return new Amount(toCharge.Currency, total);
         }
     }
 }

@@ -11,11 +11,12 @@ namespace Demo
             ValidBefore = validBefore ?? throw new ArgumentNullException(nameof(validBefore));
         }
 
-        public override decimal Withdraw(Currency currency, decimal amount)
-        {
-            if (ValidBefore.CompareTo(DateTime.Now) <= 0) return 0;
+        public override Money On(Timestamp time) => CardOn(time);
 
-            return amount;
-        }
+        public BankCard CardOn(Timestamp time) => time.CompareTo(this.ValidBefore) >= 0 ? (BankCard)new CardExpired(this.ValidBefore) : this;
+
+        public override SpecificMoney Of(Currency currency) => new SpecificCard(currency, this);
+
+        public virtual Tuple<Amount, Money> Take(Currency currency, decimal amount) => Tuple.Create(new Amount(currency, amount), (Money)this);
     }
 }

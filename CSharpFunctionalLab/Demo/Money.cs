@@ -1,7 +1,8 @@
 ﻿namespace Demo
 {
     public abstract class Money
-    {
-        public abstract decimal Withdraw(Currency currency, decimal amount);
+    {        public abstract Money On(Timestamp time);
+
+        public abstract SpecificMoney Of(Currency currency);
     }
 }

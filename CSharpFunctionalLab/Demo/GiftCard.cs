@@ -2,20 +2,15 @@
 
 namespace Demo
 {
-    public class GiftCard : FixedMoney
+    public class GiftCard : Amount
     {
         public Date ValidBefore { get; }
 
         public GiftCard(Currency currency, decimal amount, Date validBefore) : base(currency, amount)
         {
-            ValidBefore = validBefore ?? throw new ArgumentNullException(nameof(validBefore));
+            ValidBefore = validBefore ?? throw new ArgumentNullException(nameof(ValidBefore));
         }
 
-        public override decimal Withdraw(Currency currency, decimal amount)
-        {
-            if (ValidBefore.CompareTo(DateTime.Now) <= 0) return 0;
-
-            return base.Withdraw(currency, amount);
-        }
+        public override Money On(Timestamp time) => time.CompareTo(this.ValidBefore) >= 0 ? Amount.Zero(base.Currency) : this;
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Demo
 {
@@ -6,25 +8,19 @@ namespace Demo
     {
         static void Main()
         {
-            Amount amt = new Amount(Currency.USD, 100);
+            IDictionary<Currency, Money> moneys = new Dictionary<Currency, Money>();
 
-            Console.Write($"Have { amt }: ");
+            Money money = new Amount(Currency.USD, 100);
 
-            (Amount taken, _) = amt.Of(Currency.USD).Take(50); //Tuple deconstruction example.
+            moneys.Add(Currency.USD, money);
 
-            Console.WriteLine($"can take { taken }");
+            Console.Write($"Have { money }: ");
 
-            Console.Write($"Have { amt }: ");
+            if (moneys.ContainsKey(Currency.USD)) Console.WriteLine($"Found { moneys[Currency.USD] }");
 
-            (Amount nextTaken, _) = amt.Of(Currency.USD).Take(50); //Tuple deconstruction example.
-
-            Console.WriteLine($"can take { nextTaken }");
+            else Console.WriteLine($"{ Currency.USD } not found.");
 
             Console.ReadLine();
-
-
-
-
         }
     }
 }

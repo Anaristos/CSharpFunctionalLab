@@ -14,9 +14,9 @@ namespace Demo
 
             moneys.Add(Currency.USD, money);
 
-            Console.Write($"Have { money }: ");
+            Console.WriteLine($"Added { money }.");
 
-            if (moneys.ContainsKey(Currency.USD)) Console.WriteLine($"Found { moneys[Currency.USD] }");
+            if (moneys.ContainsKey(Currency.USD)) Console.WriteLine($"Found { moneys[Currency.USD] }.");
 
             else Console.WriteLine($"{ Currency.USD } not found.");
 

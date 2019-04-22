@@ -19,7 +19,7 @@ namespace Demo
 
         public bool Equals(Currency other) => !(other is null) && other.Symbol == Symbol;
 
-        public override int GetHashCode() => Symbol?.GetHashCode() ?? 0;
+        //public override int GetHashCode() => Symbol?.GetHashCode() ?? 0;
 
         public static bool operator ==(Currency a, Currency b) => ReferenceEquals(a, b) || (!(a is null) && a.Equals(b));
 

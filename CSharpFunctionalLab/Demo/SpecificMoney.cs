@@ -13,8 +13,8 @@ namespace Demo
 
         public override SpecificMoney Of(Currency currency)
         {
-            if (currency.Equals(this.Currency))
-                return this;
+            if (currency.Equals(Currency)) return this;
+
             return new Empty(currency);
         }
 

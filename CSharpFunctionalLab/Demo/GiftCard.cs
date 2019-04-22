@@ -11,6 +11,6 @@ namespace Demo
             ValidBefore = validBefore ?? throw new ArgumentNullException(nameof(ValidBefore));
         }
 
-        public override Money On(Timestamp time) => time.CompareTo(this.ValidBefore) >= 0 ? Amount.Zero(base.Currency) : this;
+        public override Money On(Timestamp time) => time.CompareTo(ValidBefore) >= 0 ? Amount.Zero(Currency) : this;
     }
 }

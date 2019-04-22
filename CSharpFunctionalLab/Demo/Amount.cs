@@ -8,24 +8,22 @@ namespace Demo
 
         public Amount(Currency currency, decimal amount) : base(currency)
         {
-            if (amount < 0)
-                throw new ArgumentException("Negative amount.");
-            this.Value = amount;
+            if (amount < 0) throw new ArgumentException("Negative amount.");
+
+            Value = amount;
         }
 
         public override Money On(Timestamp time) => this;
 
         public override Tuple<Amount, Money> Take(decimal amount)
         {
-            decimal taken = Math.Min(this.Value, amount);
-            decimal remaining = this.Value - taken;
+            decimal taken = Math.Min(Value, amount);
 
-            return Tuple.Create(
-                new Amount(base.Currency, taken), 
-                (Money)new Amount(base.Currency, remaining));
+            decimal remaining = Value - taken;
+
+            return Tuple.Create(new Amount(Currency, taken), (Money) new Amount(Currency, remaining));
         }
 
-        public static Amount Zero(Currency currency) =>
-            new Amount(currency, 0);
+        public static Amount Zero(Currency currency) =>  new Amount(currency, 0);
     }
 }

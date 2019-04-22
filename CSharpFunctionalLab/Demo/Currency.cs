@@ -40,7 +40,7 @@ namespace Demo
             return (Symbol != null ? Symbol.GetHashCode() : 0);
         }
 
-        public static bool operator ==(Currency a, Currency b) => (a is null && object.ReferenceEquals(b, null)) || (!(a is null) && a.Equals(b));
+        public static bool operator ==(Currency a, Currency b) => (a is null && b is null) || (!(a is null) && a.Equals(b));
 
         public static bool operator !=(Currency a, Currency b) => !(a == b);
     }

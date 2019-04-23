@@ -13,17 +13,6 @@ namespace Demo
             Value = amount;
         }
 
-        //public override Money On(Timestamp time) => this;
-
-        //public override (Amount, Money) Take(decimal amount)
-        //{
-        //    decimal taken = Math.Min(Value, amount);
-
-        //    decimal remaining = Value - taken;
-
-        //    return ((new Amount(Currency, taken), (Money) new Amount(Currency, remaining)));
-        //}
-
         public virtual Amount Add(Amount other) => other == null ? throw new ArgumentNullException(nameof(other)) : other.Currency != Currency
                                                                  ? throw new ArgumentException("Mismatched currency.") : new Amount(Currency, Value + other.Value);
 

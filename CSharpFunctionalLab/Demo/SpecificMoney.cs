@@ -11,13 +11,13 @@ namespace Demo
             Currency = currency ?? throw new ArgumentNullException(nameof(currency));
         }
 
-        public override SpecificMoney Of(Currency currency)
-        {
-            if (currency.Equals(Currency)) return this;
+        //public override SpecificMoney Of(Currency currency)
+        //{
+        //    if (currency.Equals(Currency)) return this;
 
-            return new Empty(currency);
-        }
+        //    return new Empty(currency);
+        //}
 
-        public abstract (Amount, Money) Take(decimal amount);
+        //public abstract Tuple<Amount, Money> Take(decimal amount);
     }
 }

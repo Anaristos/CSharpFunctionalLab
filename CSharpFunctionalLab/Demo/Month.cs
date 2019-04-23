@@ -2,7 +2,7 @@
 
 namespace Demo
 {
-    public sealed class Month : IEquatable<Month>, IComparable<DateTime>
+    public sealed class Month : IEquatable<Month>, IComparable<DateTime>, IComparable<Date>, IComparable<Month>, IComparable<Timestamp>
     {
         private Date Value { get; }
 
@@ -39,5 +39,11 @@ namespace Demo
         public static bool operator ==(Month a, Month b) => (a is null && b is null) || (!(a is null) && a.Equals(b));
 
         public static bool operator !=(Month a, Month b) => !(a == b);
+
+        public int CompareTo(Timestamp other) => -other.CompareTo(Value);
+
+        public int CompareTo(Date other) => -other.CompareTo(Value);
+
+        public int CompareTo(Month other) => Value.CompareTo(other.Value);
     }
 }

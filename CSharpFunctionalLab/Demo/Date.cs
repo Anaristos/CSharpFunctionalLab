@@ -2,14 +2,11 @@
 
 namespace Demo
 {
-    public sealed class Date : IEquatable<Date>, IComparable<DateTime>
+    public sealed class Date : IEquatable<Date>, IComparable<DateTime>, IComparable<Date>, IComparable<Month>, IComparable<Timestamp>
     {
         private DateTime Value { get; }
 
-        public Date(int year, int month, int day)
-        {
-            Value = new DateTime(year, month, day);
-        }
+        public Date(int year, int month, int day) => Value = new DateTime(year, month, day);
 
         public bool Equals(Date other)
         {
@@ -41,5 +38,11 @@ namespace Demo
         public static bool operator ==(Date a, Date b) => (a is null && b is null) || (!(a is null) && a.Equals(b));
 
         public static bool operator !=(Date a, Date b) => !(a == b);
+
+        public int CompareTo(Date other) => Value.CompareTo(other.Value);
+
+        public int CompareTo(Month other) => -other.CompareTo(Value);
+
+        public int CompareTo(Timestamp other) => -other.CompareTo(Value);
     }
 }

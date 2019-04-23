@@ -1,30 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Demo
 {
     public class Wallet
     {
-        private IList<Money> Content { get; set; } = new List<Money>();
+        private IEnumerable<Money> Moneys { get; }
 
-        public void Add(Money money)
+        public Wallet(IEnumerable<Money> moneys)
         {
-            Content.Add(money ?? throw new ArgumentNullException(nameof(money)));
+            Moneys = moneys.ToList();
         }
 
-        public Amount Charge(Currency currency, Amount toCharge)
+        public (Amount paid, Wallet remaining) Pay(Amount expense)
         {
-            IEnumerable<(Amount, Money)> split = Content.On(Timestamp.Now)
-                                                        .Of(toCharge.Currency)
-                                                        .Take(toCharge.Value)
-                                                        .ToList();
+            Amount remainder = expense;
 
-            Content = split.Select(tuple => tuple.Item2).ToList();
+            Amount paid = Amount.Zero(expense.Currency);
 
-            decimal total = split.Sum(tuple => tuple.Item1.Value);
+            IList<Money> rests = new List<Money>();
 
-            return new Amount(toCharge.Currency, total);
+            foreach (Money money in Moneys)
+            {
+                (Amount stepPaid, Money stepRemaining) = money.Pay(remainder);
+
+                paid = paid.Add(stepPaid);
+
+                rests.Add(stepRemaining);
+            }
+
+            return (paid, new Wallet(rests.Where(item => !(item is Empty))));
         }
     }
 }

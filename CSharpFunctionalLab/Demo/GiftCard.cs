@@ -17,7 +17,5 @@ namespace Demo
         public override Amount Subtract(Amount other) => other == null ? throw new ArgumentNullException(nameof(other)) : other.Currency != Currency
                                                                        ? throw new ArgumentException("Mismatched currency.") : other.Value > Value
                                                                        ? throw new ArgumentException("Insufficient funds.") : new GiftCard(Currency, Value - other.Value, ValidBefore);
-
-        //public override Money On(Timestamp time) => time.CompareTo(ValidBefore) >= 0 ? Amount.Zero(Currency) : this;
     }
 }

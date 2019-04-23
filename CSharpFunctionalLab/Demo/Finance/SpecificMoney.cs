@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Demo
+namespace Demo.Finance
 {
     public abstract class SpecificMoney : Money
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Demo
+namespace Demo.Finance
 {
     public sealed class Month : IEquatable<Month>, IComparable<DateTime>, IComparable<Date>, IComparable<Month>, IComparable<Timestamp>
     {

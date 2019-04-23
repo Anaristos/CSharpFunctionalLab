@@ -6,10 +6,7 @@ namespace Demo
     {
         public string Symbol { get; }
 
-        private Currency(string symbol)
-        {
-            Symbol = symbol;
-        }
+        private Currency(string symbol) => Symbol = symbol;
 
         public static Currency USD => new Currency("USD");
         public static Currency EUR => new Currency("EUR");

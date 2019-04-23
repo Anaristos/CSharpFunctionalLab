@@ -52,6 +52,7 @@
     <Compile Include="Finance\Empty.cs" />
     <Compile Include="Finance\GiftCard.cs" />
     <Compile Include="Finance\Money.cs" />
+    <Compile Include="Finance\MoneyPaymentExtensions.cs" />
     <Compile Include="MoneyPaymentExtensions.cs" />
     <Compile Include="Finance\Month.cs" />
     <Compile Include="Program.cs" />
